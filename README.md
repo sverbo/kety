@@ -8,8 +8,8 @@ hand it to someone else, who opens it as a read-only assistant.
 **macOS on Apple Silicon only.** Tauri 2: Rust backend, React + TypeScript
 frontend. Apache-2.0.
 
-[**sverbo.github.io/kety**](https://sverbo.github.io/kety/) is the short version
-of all this, for anyone who would rather read a page than a README.
+[**kety.app**](https://kety.app) is the short version of all this, for anyone who
+would rather read a page than a README.
 
 ---
 
