@@ -4,10 +4,10 @@
 
 Kety builds on macOS with Apple Silicon. You need:
 
-- **Xcode Command Line Tools** — `xcode-select --install`. `src-tauri/build.rs` shells
+- **Xcode Command Line Tools**: `xcode-select --install`. `src-tauri/build.rs` shells
   out to `swiftc` to compile the ScreenCaptureKit and Vision helpers, so the build
   fails without them.
-- **Rust** (stable, 1.77.2 or newer) — https://rustup.rs
+- **Rust** (stable, 1.77.2 or newer): https://rustup.rs
 - **Node.js 18 or newer**
 
 Then:
@@ -37,14 +37,14 @@ cargo test --manifest-path src-tauri/Cargo.toml
 
 Pull requests are welcome. Some things worth knowing:
 
-- Everything written into the repo is in **English** — identifiers, comments,
-  commit messages, user-facing strings. Some older Rust comments are in French;
+- Everything written into the repo is in **English** (identifiers, comments,
+  commit messages, user-facing strings). Some older Rust comments are in French;
   leave them alone rather than translating them in passing.
 - Keep the change and its explanation in the same place. Several non-obvious
   decisions in this codebase are recorded as comments next to the code they
   constrain (see the `zip` dependency in `src-tauri/Cargo.toml` for the style).
-- Anything that changes what leaves the machine — a new network call, a new
-  upload path, a new field in an export — should say so explicitly in the pull
+- Anything that changes what leaves the machine (a new network call, a new
+  upload path, a new field in an export) should say so explicitly in the pull
   request description.
 
 ## Anything else
