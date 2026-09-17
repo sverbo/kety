@@ -13,7 +13,7 @@ Kety builds on macOS with Apple Silicon. You need:
 Then:
 
 ```sh
-cd desktop-app/kts-desktop
+cd desktop-app/kety-desktop
 npm install
 npm run tauri dev
 ```
@@ -29,7 +29,7 @@ npm run tauri build
 Before opening a pull request:
 
 ```sh
-npx tsc --noEmit -p .                    # from desktop-app/kts-desktop
+npx tsc --noEmit -p .                    # from desktop-app/kety-desktop
 cargo test --manifest-path src-tauri/Cargo.toml
 ```
 

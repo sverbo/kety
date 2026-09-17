@@ -1,7 +1,7 @@
 # Local env files - never commit real credentials
 backend/.env.secret
 frontend/.env
-desktop-app/kts-desktop/.env.local
+desktop-app/kety-desktop/.env.local
 
 # Python
 __pycache__/

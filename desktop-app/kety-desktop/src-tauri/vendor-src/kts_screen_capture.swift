@@ -305,7 +305,7 @@ public func kts_ensure_microphone_access(
     _ errLen: Int
 ) -> Int32 {
     let denied = "Accès au microphone refusé. " +
-        "Active kts-desktop dans Réglages système → Confidentialité et sécurité → Microphone, " +
+        "Active Kety dans Réglages système → Confidentialité et sécurité → Microphone, " +
         "puis réessaie."
     let status = AVCaptureDevice.authorizationStatus(for: .audio)
     switch status {

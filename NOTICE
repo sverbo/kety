@@ -100,7 +100,7 @@ https://github.com/ggerganov/whisper.cpp
 
   Copyright (c) 2023-2026 The ggml authors
 
-Built from source by `desktop-app/kts-desktop/scripts/setup-whisper.sh` and
+Built from source by `desktop-app/kety-desktop/scripts/setup-whisper.sh` and
 distributed as the `whisper-cli` binary inside the application bundle. The
 statically linked ggml library is covered by the same licence.
 
@@ -110,7 +110,7 @@ https://github.com/ggerganov/llama.cpp
 
   Copyright (c) 2023-2026 The ggml authors
 
-Built from source by `desktop-app/kts-desktop/scripts/setup-llama-cli.sh` and
+Built from source by `desktop-app/kety-desktop/scripts/setup-llama-cli.sh` and
 distributed as the `llama-cli` and `llama-embedding` binaries inside the
 application bundle. The statically linked ggml library is covered by the same
 licence.

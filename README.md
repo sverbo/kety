@@ -98,7 +98,7 @@ become searchable without you pressing anything.
 ## Build
 
 ```sh
-cd desktop-app/kts-desktop
+cd desktop-app/kety-desktop
 npm install
 npm run tauri dev
 ```
@@ -122,7 +122,7 @@ you need for local text generation and local embeddings.
 Checks:
 
 ```sh
-npx tsc --noEmit -p .                    # from desktop-app/kts-desktop
+npx tsc --noEmit -p .                    # from desktop-app/kety-desktop
 cargo test --manifest-path src-tauri/Cargo.toml
 ```
 
@@ -131,7 +131,7 @@ cargo test --manifest-path src-tauri/Cargo.toml
 ## Architecture
 
 ```
-desktop-app/kts-desktop/
+desktop-app/kety-desktop/
   src/                  React 19 + TypeScript, built by Vite
   src-tauri/src/        Rust, all the actual work
   src-tauri/vendor-src/ Swift helpers compiled by build.rs
@@ -221,9 +221,10 @@ Stated plainly, since you would find them anyway:
 - One of the offered local models, **Qwen2.5-3B-Instruct**, is under the Qwen
   Research License rather than Apache-2.0, which restricts commercial use. See
   `NOTICE`.
-- **`kts` is the old name.** The product is Kety, but the directory is
-  `kts-desktop`, the crate is `kts_desktop_lib`, events are `kts:*` and env
-  overrides are `KTS_LOCAL_*`. Renaming is not worth the churn yet.
+- **`kts` is the old name**, from Knowledge Transfer System. The directory and
+  the crate are `kety-desktop` now, but events are still `kts:*`, env overrides
+  are `KTS_LOCAL_*`, and the screen-capture helper is `kts_screen_capture`.
+  Those are internal identifiers, and renaming them buys nothing a reader needs.
 - Some older comments in the Rust sources are in French, and a handful of error
   strings still are too. Deliberately left as they are; new code is English.
 

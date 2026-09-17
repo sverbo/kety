@@ -39,7 +39,7 @@ pub fn ensure_screen_capture_access<R: Runtime>(app: &AppHandle<R>) -> Result<()
     if !already_granted {
         return Err(
             "Enregistrement de l’écran : autorisation requise.\n\
-Active **kts-desktop** dans Réglages système → Confidentialité et sécurité → \
+Active **Kety** dans Réglages système → Confidentialité et sécurité → \
 Enregistrement de l’écran, puis **redémarre l’application** pour que la permission prenne effet."
                 .to_string(),
         );
