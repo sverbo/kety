@@ -115,6 +115,12 @@ Notarizing would remove the step entirely. It needs a paid Apple Developer
 account, so it is not done yet. Signing without notarizing would change nothing:
 recent macOS blocks that just the same.
 
+**Or build it yourself**, below. Quarantine is attached by whatever downloads a
+file, not by the machine it came from, so an app you compiled has no quarantine
+flag and opens with none of this. It is also the only way to be sure the binary
+matches the source, which for an app that reads what is on your screen is a
+reasonable thing to want.
+
 ---
 
 ## Build it yourself
