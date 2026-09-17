@@ -95,6 +95,28 @@ become searchable without you pressing anything.
   `swiftc` directly.
 - **Rust** stable (1.77.2+) and **Node.js 18+**.
 
+## Installing the release build
+
+macOS blocks it on first launch: the app is ad-hoc signed, not notarized with
+Apple, and Gatekeeper rejects that. The dialog offers only **Move to Trash**.
+
+Open **System Settings > Privacy & Security**, scroll to the bottom, and click
+**Open Anyway** on the line about Kety. Confirm once and it opens normally from
+then on. On macOS 14 and earlier you can Control-click the app and choose
+**Open** instead; Apple removed that shortcut in macOS 15.
+
+From a terminal, this does the same thing:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Kety.app
+```
+
+Notarizing would remove the step entirely. It needs a paid Apple Developer
+account, so it is not done yet. Signing without notarizing would change nothing:
+recent macOS blocks that just the same.
+
+---
+
 ## Build it yourself
 
 You need macOS on Apple Silicon, the Xcode Command Line Tools (`xcode-select
