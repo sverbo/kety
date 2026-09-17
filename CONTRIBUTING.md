@@ -9,22 +9,22 @@ Kety builds on macOS with Apple Silicon. You need:
   fails without them.
 - **Rust** (stable, 1.77.2 or newer): https://rustup.rs
 - **Node.js 18 or newer**
+- **cmake**: `brew install cmake`, for the llama.cpp and whisper.cpp builds
 
 Then:
 
 ```sh
 cd desktop-app/kety-desktop
 npm install
+bash scripts/setup.sh
 npm run tauri dev
 ```
 
-The first Rust build takes a while. `npm run tauri dev` does not need the Whisper
-binary; a bundled release build does:
-
-```sh
-bash scripts/setup-whisper.sh   # builds whisper.cpp, downloads ~1.5 GB of weights
-npm run tauri build
-```
+`setup.sh` builds the vendored binaries, which are not in the repository. The
+whisper step downloads about 1.5 GB of weights; `--no-whisper` skips it, at the
+cost of dictation and of being able to run `npm run tauri build`. The README
+explains what each binary is and where it comes from. The first Rust build takes
+a while.
 
 Before opening a pull request:
 

@@ -95,36 +95,55 @@ become searchable without you pressing anything.
   `swiftc` directly.
 - **Rust** stable (1.77.2+) and **Node.js 18+**.
 
-## Build
+## Build it yourself
+
+You need macOS on Apple Silicon, the Xcode Command Line Tools (`xcode-select
+--install`), [Rust](https://rustup.rs), Node 18 or later, and `cmake` (`brew
+install cmake`).
 
 ```sh
-cd desktop-app/kety-desktop
+git clone https://github.com/sverbo/kety.git
+cd kety/desktop-app/kety-desktop
 npm install
+bash scripts/setup.sh
 npm run tauri dev
 ```
 
-That is enough for a development build. The first Rust compile takes a while.
+`setup.sh` builds the binaries that git does not carry, and the whisper step
+downloads about 1.5 GB of model weights, so expect it to take a while. Pass
+`--no-whisper` to skip that: dictation will not work, and `npm run tauri build`
+will refuse to package, but everything else runs. The first Rust compile is slow
+on any machine.
 
-A **bundled release build additionally needs the Whisper binary**, because
-`vendor/whisper-cli` is listed in `tauri.conf.json` as a bundle resource and
-Tauri refuses to package a missing resource:
+### What is not in the repository, and why
 
-```sh
-bash scripts/setup-whisper.sh   # clones and builds whisper.cpp, then downloads
-                                # ggml-medium.bin (about 1.5 GB)
-npm run tauri build
-```
+`src-tauri/vendor/` holds four binaries, none of them committed. They are build
+output, they are specific to one architecture, and the whisper toolchain pulls
+in a GPL `ffmpeg`, which has no business inside an Apache-2.0 tree.
 
-`npm install` drops a placeholder `vendor/llama-cli` so the bundle resolves;
-`bash scripts/setup-llama-cli.sh` replaces it with a real llama.cpp build, which
-you need for local text generation and local embeddings.
+| | what it does | where it comes from |
+|---|---|---|
+| `ocr-tool` | text out of images | `build.rs` compiles it from `vendor-src/ocr.swift` on the first `cargo build`. Automatic. |
+| `llama-cli` | local text generation | `scripts/setup-llama-cli.sh`, from llama.cpp |
+| `llama-embedding` | local embeddings | same script, same build |
+| `whisper-cli` | speech to text | `scripts/setup-whisper.sh`, from whisper.cpp, plus the model weights |
 
-Checks:
+`npm install` drops a stub at `vendor/llama-cli` so Tauri can resolve the bundle
+resource before you have built the real one. It is a placeholder, not a working
+binary: until `setup.sh` has run, anything that needs a local model will fail.
+
+Models themselves are never bundled. The app downloads the ones you pick from
+Settings, into your own Application Support folder.
+
+### Checks
 
 ```sh
 npx tsc --noEmit -p .                    # from desktop-app/kety-desktop
 cargo test --manifest-path src-tauri/Cargo.toml
 ```
+
+`cargo check` is expected to end with two warnings, `for_model` and
+`private_key_id`. Anything beyond those two is yours.
 
 ---
 
