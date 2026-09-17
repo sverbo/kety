@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Kety for Google Meet",
+  "version": "0.1.0",
+  "description": "Save Google Meet conversations for Kety on your computer. Gentle reminders when captions are off; send to the Kety app when you're done.",
+  "icons": {
+    "32": "icons/kts-icon.png",
+    "128": "icons/kts-icon.png"
+  },
+  "action": {
+    "default_title": "Kety for Google Meet",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "icons/kts-icon.png",
+      "128": "icons/kts-icon.png"
+    }
+  },
+  "options_page": "options.html",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["http://127.0.0.1/*", "http://localhost/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

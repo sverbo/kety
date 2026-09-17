@@ -1,0 +1,89 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Kety",
+  "version": "0.1.0",
+  "identifier": "com.kety.desktop",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build:all",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Kety",
+        "width": 800,
+        "height": 600,
+        "visible": false,
+        "devtools": true
+      },
+      {
+        "label": "tray_note",
+        "title": "Note de contexte",
+        "width": 380,
+        "height": 420,
+        "resizable": true,
+        "minimizable": false,
+        "visible": false,
+        "url": "index.html?panel=tray-note",
+        "devtools": true
+      },
+      {
+        "label": "dictation_hud",
+        "title": "Dictation",
+        "width": 268,
+        "height": 44,
+        "resizable": false,
+        "visible": false,
+        "alwaysOnTop": true,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "acceptFirstMouse": true,
+        "url": "hud.html",
+        "devtools": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPLOCALDATA/kety/**"]
+      }
+    }
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["kety"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "resources": [
+      "vendor/whisper-cli",
+      "vendor/ocr-tool",
+      "vendor/llama-cli",
+      "../../../chrome-extension"
+    ],
+    "macOS": {
+      "infoPlist": "Info.plist",
+      "signingIdentity": "-",
+      "entitlements": "entitlements.plist",
+      "files": {
+        "Resources/libkts_screen_capture.dylib": "resources/libkts_screen_capture.dylib"
+      }
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

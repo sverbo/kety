@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kety for Google Meet</title>
+    <style>
+      :root {
+        --text: #1c1c1e;
+        --accent: #007aff;
+        --muted: rgba(0, 0, 0, 0.55);
+        --line: rgba(0, 0, 0, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        width: 360px;
+        max-height: 560px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        color: var(--text);
+        background: #fff;
+      }
+      .cc-reminder {
+        flex-shrink: 0;
+        margin: 0;
+        padding: 12px 14px;
+        background: #fff0f0;
+        border-bottom: 1px solid rgba(217, 48, 37, 0.25);
+        color: #8b1a1a;
+      }
+      /* Only the headline <strong> is block; bold inside <p> stays inline. */
+      .cc-reminder > strong {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #c5221f;
+        margin-bottom: 6px;
+      }
+      .cc-reminder p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #5c2121;
+      }
+      .banner {
+        flex-shrink: 0;
+        padding: 12px 14px;
+        background: linear-gradient(145deg, #eef4ff 0%, #f5f0ff 50%, #fff5f8 100%);
+        border-bottom: 1px solid var(--line);
+      }
+      .banner > strong {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+      .banner p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .section-head {
+        flex-shrink: 0;
+        padding: 8px 12px 4px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+      .list-wrap {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+        padding: 0 8px 8px;
+      }
+      .row {
+        padding: 8px 8px;
+        margin-bottom: 6px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #fafafa;
+      }
+      .row-title {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 1.35;
+        margin-bottom: 2px;
+        word-break: break-word;
+      }
+      .row-meta {
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .meet-transcript {
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 10px;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: rgba(0, 0, 0, 0.82);
+        max-height: 120px;
+        overflow-y: auto;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 8px;
+        border: 1px solid var(--line);
+      }
+      .meet-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        margin-top: 6px;
+      }
+      .sync-done-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 22px;
+        height: 34px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #248a3d;
+        user-select: none;
+      }
+      button.icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: rgba(0, 0, 0, 0.65);
+        cursor: pointer;
+      }
+      button.icon-btn:hover {
+        background: rgba(0, 122, 255, 0.08);
+        color: var(--accent);
+      }
+      button.icon-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      button.btn-sync-app {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--accent);
+        background: rgba(0, 122, 255, 0.1);
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 11px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      button.btn-sync-app:hover {
+        background: rgba(0, 122, 255, 0.16);
+      }
+      button.btn-sync-app:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-sync-app svg {
+        flex-shrink: 0;
+      }
+      #toast {
+        font-size: 11px;
+        min-height: 1.2em;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+      #toast.ok {
+        color: #248a3d;
+      }
+      #toast.err {
+        color: #d93025;
+      }
+      .meet-sync-err {
+        margin: 8px 0 0;
+        padding: 8px 10px;
+        font-size: 11px;
+        line-height: 1.45;
+        color: #c5221f;
+        background: rgba(217, 48, 37, 0.06);
+        border-radius: 8px;
+        border: 1px solid rgba(217, 48, 37, 0.2);
+      }
+      .empty {
+        padding: 12px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      footer {
+        flex-shrink: 0;
+        padding: 8px 12px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      footer button,
+      footer a {
+        font-size: 12px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: var(--accent);
+        text-align: left;
+        padding: 0;
+        text-decoration: underline;
+        font-family: inherit;
+      }
+      footer .retention {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+        text-decoration: none;
+        cursor: default;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cc-reminder" class="cc-reminder" role="alert" aria-live="polite" hidden>
+      <strong>Please turn on captions</strong>
+      <p>
+        Turn on <strong>live captions (CC)</strong> in Google Meet so Kety can save what people say. Tap the CC button in
+        your Meet toolbar.
+      </p>
+    </div>
+    <div id="banner-soft" class="banner">
+      <strong>Your Meet, saved for Kety</strong>
+      <p>
+        Kety keeps this meeting on <strong>this computer</strong> until you close the Meet tab. Then it can send the
+        conversation to the Kety app-or tap <strong>Sync with app</strong> whenever you're ready.
+      </p>
+    </div>
+    <div class="section-head">Recent meetings</div>
+    <div class="list-wrap" id="list"></div>
+    <footer>
+      <div id="toast" role="status"></div>
+      <button type="button" id="open-options">Settings</button>
+      <span class="retention" id="retention-hint"></span>
+    </footer>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Requis pour WebKit JIT avec hardened runtime -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <!-- Permet de charger le dylib Swift (libkts_screen_capture) sans vérifier
+         que son Team ID correspond à celui du binaire principal -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <!-- Requis pour l'accès au microphone (cpal + WebKit getUserMedia) avec hardened runtime -->
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+</dict>
+</plist>

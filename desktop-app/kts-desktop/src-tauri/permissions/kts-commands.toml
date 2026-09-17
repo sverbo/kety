@@ -1,0 +1,605 @@
+[[permission]]
+identifier = "allow-append-segment-context"
+description = "Allows appending user context to the current recording segment."
+commands.allow = ["append_segment_context"]
+
+[[permission]]
+identifier = "allow-append-segment-document"
+description = "Allows appending a document summary row (kind document) to the current segment."
+commands.allow = ["append_segment_document"]
+
+[[permission]]
+identifier = "allow-set-google-meet-timeline-explanation"
+description = "Sets Explanation on a Google Meet caption row in the live segment timeline (after server/local summary)."
+commands.allow = ["set_google_meet_timeline_explanation_cmd"]
+
+[[permission]]
+identifier = "allow-recording-self-identity"
+description = "Expose process id and bundle ids to filter out this app from segment lists."
+commands.allow = ["recording_self_identity"]
+
+[[permission]]
+identifier = "allow-recording-panel-state"
+description = "Read recording session id and focus poll state for the tray note panel."
+commands.allow = ["recording_panel_state"]
+
+[[permission]]
+identifier = "allow-sync-recording-ui-state"
+description = "Sync session id and focus capture to Rust (tray + segment context routing) deterministically."
+commands.allow = ["sync_recording_ui_state"]
+
+[[permission]]
+identifier = "allow-set-tray-signed-in"
+description = "Enable or disable tray menu items based on whether the user is signed in."
+commands.allow = ["set_tray_signed_in_cmd"]
+
+[[permission]]
+identifier = "allow-invoke-recording-tray-action"
+description = "Relay Start (ou Reprendre) / Pause / Stop from the tray note window to the main UI."
+commands.allow = ["invoke_recording_tray_action_cmd"]
+
+# ── HUD flottant ──────────────────────────────────────────────────────────────
+
+[[permission]]
+identifier = "allow-get-hud-state"
+description = "Récupère le mode courant du HUD (dictation / screen-ready / screen)."
+commands.allow = ["get_hud_state_cmd"]
+
+[[permission]]
+identifier = "allow-stop-dictation"
+description = "Arrête la dictée active depuis le HUD."
+commands.allow = ["stop_dictation_cmd"]
+
+[[permission]]
+identifier = "allow-stop-screen-record"
+description = "Arrête l'enregistrement écran depuis le HUD."
+commands.allow = ["stop_screen_record_cmd"]
+
+[[permission]]
+identifier = "allow-start-screen-record"
+description = "Démarre l'enregistrement écran depuis le HUD (après sélection de l'écran)."
+commands.allow = ["start_screen_record_cmd"]
+
+[[permission]]
+identifier = "allow-delete-capture-files"
+description = "Supprime les fichiers locaux (screenshots, recordings) après upload vers GCS."
+commands.allow = ["delete_capture_files"]
+
+[[permission]]
+identifier = "allow-copy-text-to-clipboard"
+description = "Copies text to the system clipboard via Rust (WKWebView workaround)."
+commands.allow = ["copy_text_to_clipboard"]
+
+[[permission]]
+identifier = "allow-start-dictation"
+description = "Starts a Whisper dictation session."
+commands.allow = ["start_dictation_cmd"]
+
+[[permission]]
+identifier = "allow-start-dictation-custom"
+description = "Starts dictation with optional OpenAI post-processing of the transcript."
+commands.allow = ["start_dictation_custom_cmd"]
+
+[[permission]]
+identifier = "allow-sync-dictation-custom-settings"
+description = "Syncs custom dictation LLM model and prompt templates into Rust."
+commands.allow = ["sync_dictation_custom_settings_cmd"]
+
+[[permission]]
+identifier = "allow-get-dictation-custom-prompt-defaults"
+description = "Returns built-in default custom dictation prompt templates (single source in Rust)."
+commands.allow = ["get_dictation_custom_prompt_defaults_cmd"]
+
+[[permission]]
+identifier = "allow-start-tray-dictation"
+description = "Starts an inline Whisper dictation from the tray-note panel (no HUD, result routed to tray_note window)."
+commands.allow = ["start_tray_dictation_cmd"]
+
+[[permission]]
+identifier = "allow-set-dictation-lang"
+description = "Sets the Whisper transcription language."
+commands.allow = ["set_dictation_lang_cmd"]
+
+[[permission]]
+identifier = "allow-set-dictation-provider"
+description = "Sets the dictation provider (local Whisper or OpenAI Whisper API) and stores the API key."
+commands.allow = ["set_dictation_provider_cmd"]
+
+[[permission]]
+identifier = "allow-set-kety-server-session"
+description = "Syncs backend base URL and Supabase access token for premium Kety server calls."
+commands.allow = ["set_kety_server_session_cmd"]
+
+[[permission]]
+identifier = "allow-hide-hud"
+description = "Hides the dictation/screen-record HUD window."
+commands.allow = ["hide_hud_cmd"]
+
+[[permission]]
+identifier = "allow-show-hud-result"
+description = "Shows the HUD again with the text that was just produced, so it can be read and copied."
+commands.allow = ["show_hud_result_cmd"]
+
+[[permission]]
+identifier = "allow-place-hud-after-resize"
+description = "Puts the HUD back where it belongs once the frontend has resized it."
+commands.allow = ["place_hud_after_resize_cmd"]
+
+[[permission]]
+identifier = "allow-mark-hud-moved-by-user"
+description = "Records that the user dragged the HUD, so nothing puts it back."
+commands.allow = ["mark_hud_moved_by_user_cmd"]
+
+[[permission]]
+identifier = "allow-focus-hud"
+description = "Gives the HUD the keyboard so the user can type a follow-up in it."
+commands.allow = ["focus_hud_cmd"]
+
+[[permission]]
+identifier = "allow-hud-chat-mic-available"
+description = "Tells the HUD whether speech-to-text is set up, so the chat only offers a microphone that can work."
+commands.allow = ["hud_chat_mic_available_cmd"]
+
+[[permission]]
+identifier = "allow-start-hud-chat-mic"
+description = "Starts recording for the microphone in the HUD's follow-up chat."
+commands.allow = ["start_hud_chat_mic_cmd"]
+
+[[permission]]
+identifier = "allow-stop-hud-chat-mic"
+description = "Stops the HUD chat's microphone and returns the transcript to the chat box."
+commands.allow = ["stop_hud_chat_mic_cmd"]
+
+[[permission]]
+identifier = "allow-prepare-screen-record"
+description = "Prepares screen recording (selects display)."
+commands.allow = ["prepare_screen_record_cmd"]
+
+[[permission]]
+identifier = "allow-get-shortcuts"
+description = "Returns the current global shortcut key labels for display in Settings."
+commands.allow = ["get_shortcuts_cmd"]
+
+[[permission]]
+identifier = "allow-pause-dictation"
+description = "Met la dictée en pause (le micro reste ouvert, les échantillons sont ignorés)."
+commands.allow = ["pause_dictation_cmd"]
+
+[[permission]]
+identifier = "allow-resume-dictation"
+description = "Reprend la dictée après une pause."
+commands.allow = ["resume_dictation_cmd"]
+
+[[permission]]
+identifier = "allow-pause-screen-record"
+description = "Met l'enregistrement écran en pause."
+commands.allow = ["pause_screen_record_cmd"]
+
+[[permission]]
+identifier = "allow-resume-screen-record"
+description = "Reprend l'enregistrement écran après une pause."
+commands.allow = ["resume_screen_record_cmd"]
+
+[[permission]]
+identifier = "allow-discard-hud"
+description = "Arrête et supprime l'enregistrement en cours sans traitement, puis ferme le HUD."
+commands.allow = ["discard_hud_cmd"]
+
+[[permission]]
+identifier = "allow-hide-tray-note"
+description = "Ferme la fenêtre note de contexte sans ramener la fenêtre principale au premier plan (macOS)."
+commands.allow = ["hide_tray_note_window_cmd"]
+
+[[permission]]
+identifier = "allow-check-whisper"
+description = "Returns whether whisper-cli and the model are installed in the app-local-data dir."
+commands.allow = ["check_whisper_cmd"]
+
+[[permission]]
+identifier = "allow-download-whisper"
+description = "Downloads whisper-cli or the Whisper model into the app-local-data dir."
+commands.allow = ["download_whisper_cmd"]
+
+[[permission]]
+identifier = "allow-cancel-whisper-download"
+description = "Cancels the in-progress Whisper model download and deletes the partial file."
+commands.allow = ["cancel_whisper_download_cmd"]
+
+[[permission]]
+identifier = "allow-remove-whisper"
+description = "Removes a Whisper model from the app-local-data dir."
+commands.allow = ["remove_whisper_cmd"]
+
+[[permission]]
+identifier = "allow-set-whisper-model"
+description = "Sets the active Whisper model filename."
+commands.allow = ["set_whisper_model_cmd"]
+
+[[permission]]
+identifier = "allow-check-qwen-models"
+description = "Returns install status and selection for bundled Qwen2.5 GGUF catalog entries."
+commands.allow = ["check_qwen_models_cmd"]
+
+[[permission]]
+identifier = "allow-download-qwen-model"
+description = "Downloads a Qwen2.5 GGUF file into the app-local-data dir."
+commands.allow = ["download_qwen_model_cmd"]
+
+[[permission]]
+identifier = "allow-cancel-qwen-download"
+description = "Cancels the in-progress Qwen GGUF download and deletes the partial file."
+commands.allow = ["cancel_qwen_download_cmd"]
+
+[[permission]]
+identifier = "allow-remove-qwen-model"
+description = "Removes a Qwen GGUF file from the app-local-data dir."
+commands.allow = ["remove_qwen_model_cmd"]
+
+[[permission]]
+identifier = "allow-set-qwen-local-model"
+description = "Sets the preferred on-disk Qwen GGUF filename for future local inference."
+commands.allow = ["set_qwen_local_model_cmd"]
+
+[[permission]]
+identifier = "allow-check-embed-models"
+description = "Returns install status and active model for Qwen3-Embedding GGUF catalog entries."
+commands.allow = ["check_embed_models_cmd"]
+
+[[permission]]
+identifier = "allow-download-embed-model"
+description = "Downloads a Qwen3-Embedding GGUF file into the app-local-data dir."
+commands.allow = ["download_embed_model_cmd"]
+
+[[permission]]
+identifier = "allow-cancel-embed-download"
+description = "Cancels the in-progress embedding model download and deletes the partial file."
+commands.allow = ["cancel_embed_download_cmd"]
+
+[[permission]]
+identifier = "allow-remove-embed-model"
+description = "Removes a Qwen3-Embedding GGUF file from the app-local-data dir."
+commands.allow = ["remove_embed_model_cmd"]
+
+[[permission]]
+identifier = "allow-set-active-embed-model"
+description = "Sets the active embedding model (persisted in the user's local index DB)."
+commands.allow = ["set_active_embed_model_cmd"]
+
+[[permission]]
+identifier = "allow-local-index-capture"
+description = "Indexes a capture (text + metadata) into the user's local SQLite vector store."
+commands.allow = ["local_index_capture_cmd"]
+
+[[permission]]
+identifier = "allow-local-save-capture"
+description = "Upserts a capture row (without embedding) — used to persist captures immediately to SQLite."
+commands.allow = ["local_save_capture_cmd"]
+
+[[permission]]
+identifier = "allow-local-list-captures"
+description = "Lists all non-deleted captures for a user from the local SQLite index."
+commands.allow = ["local_list_captures_cmd"]
+
+[[permission]]
+identifier = "allow-local-hard-delete-capture"
+description = "Hard-deletes a single capture and its chunks/vectors from the local index."
+commands.allow = ["local_hard_delete_capture_cmd"]
+
+[[permission]]
+identifier = "allow-local-index-stats"
+description = "Returns stats for the local index (capture counts, missing embeddings, active model)."
+commands.allow = ["local_index_stats_cmd"]
+
+[[permission]]
+identifier = "allow-local-index-pending"
+description = "Indexes captures waiting in the pending state."
+commands.allow = ["local_index_pending_cmd"]
+
+[[permission]]
+identifier = "allow-local-unindex-captures"
+description = "Removes captures from the assistant index and marks them excluded."
+commands.allow = ["local_unindex_captures_cmd"]
+
+[[permission]]
+identifier = "allow-local-reindex-captures"
+description = "Puts captures back in the indexing queue."
+commands.allow = ["local_reindex_captures_cmd"]
+
+[[permission]]
+identifier = "allow-local-index-state-counts"
+description = "Returns how many captures are pending, indexed, failed, or excluded."
+commands.allow = ["local_index_state_counts_cmd"]
+
+[[permission]]
+identifier = "allow-local-distinct-tag-ids"
+description = "Returns distinct tag IDs from non-deleted captures in the local index."
+commands.allow = ["local_distinct_tag_ids_cmd"]
+
+[[permission]]
+identifier = "allow-local-distinct-tag-ids-for-model"
+description = "Returns distinct tag IDs that have at least one chunk indexed for the given embed model."
+commands.allow = ["local_distinct_tag_ids_for_model_cmd"]
+
+[[permission]]
+identifier = "allow-local-index-diag"
+description = "Returns raw diagnostics about what embed models are stored in chunk_embeddings vs meta."
+commands.allow = ["local_index_diag_cmd"]
+
+[[permission]]
+identifier = "allow-local-model-coverage"
+description = "Reports how many captures a given embedding model can reach."
+commands.allow = ["local_model_coverage_cmd"]
+
+[[permission]]
+identifier = "allow-local-coverage-by-model"
+description = "Reports coverage for every embedding model present in the index."
+commands.allow = ["local_coverage_by_model_cmd"]
+
+[[permission]]
+identifier = "allow-local-embed-missing"
+description = "Embeds chunks that are missing a vector for the chosen model."
+commands.allow = ["local_embed_missing_cmd"]
+
+[[permission]]
+identifier = "allow-local-clear-embed-errors"
+description = "Clears the failure markers left by a previous indexing pass for one embedding model, so they can be retried."
+commands.allow = ["local_clear_embed_errors_cmd"]
+
+[[permission]]
+identifier = "allow-local-search"
+description = "Runs a hybrid (vector + BM25) search against the local index."
+commands.allow = ["local_search_cmd"]
+
+[[permission]]
+identifier = "allow-local-pack-context"
+description = "Packs local search hits into a token-budgeted context string for the assistant."
+commands.allow = ["local_pack_context_cmd"]
+
+[[permission]]
+identifier = "allow-check-local-llm"
+description = "Returns whether bundled llama-cli exists and the selected GGUF is on disk."
+commands.allow = ["check_local_llm_cmd"]
+
+[[permission]]
+identifier = "allow-sensitive-preview-run"
+description = "Runs a single Local LM sensitive-data preview on one text chunk (Phase B)."
+commands.allow = ["sensitive_preview_run_cmd"]
+
+[[permission]]
+identifier = "allow-summarize-pdf"
+description = "Runs Local LM to generate a one-paragraph summary of PDF text."
+commands.allow = ["summarize_pdf_cmd"]
+
+[[permission]]
+identifier = "allow-meta-summarize"
+description = "Combines up to 10 summaries into one meta-summary via the Local LM (recursive reduction step)."
+commands.allow = ["meta_summarize_cmd"]
+
+[[permission]]
+identifier = "allow-ocr-pdf-page"
+description = "OCRs a rendered PDF page image (base64 PNG) using the bundled ocr-tool (Vision.framework)."
+commands.allow = ["ocr_pdf_page_cmd"]
+
+[[permission]]
+identifier = "allow-sensitive-prompt-template"
+description = "Reads or writes the user-editable sensitive-classification prompt template (kts/llm_sensitive_prompt_template.txt)."
+commands.allow = ["get_sensitive_prompt_template_cmd", "set_sensitive_prompt_template_cmd"]
+
+[[permission]]
+identifier = "allow-export-recordings-context-json"
+description = "Writes recordings context JSON to the user Downloads folder and reveals the file in the system file manager."
+commands.allow = ["export_recordings_context_json_cmd"]
+
+[[permission]]
+identifier = "allow-export-recordings-context-zip"
+description = "Writes recordings export ZIP (JSON, Markdown, artefacts) to Downloads and reveals the file in the system file manager."
+commands.allow = ["export_recordings_context_zip_cmd"]
+
+[[permission]]
+identifier = "allow-put-recordings-zip-bytes"
+description = "Builds the recordings export ZIP in memory and uploads it via HTTP PUT to a signed GCS URL."
+commands.allow = ["put_recordings_zip_bytes_cmd"]
+
+[[permission]]
+identifier = "allow-sum-file-sizes"
+description = "Returns the total byte size of a list of local file paths (used for quota pre-check before signing)."
+commands.allow = ["sum_file_sizes_cmd"]
+
+[[permission]]
+identifier = "allow-put-zip-resumable"
+description = "Builds the batch upload ZIP and streams it to GCS via resumable upload (256 KB chunks), emitting zip_upload_progress events."
+commands.allow = ["put_zip_resumable_cmd"]
+
+[[permission]]
+identifier = "allow-download-url-to-downloads"
+description = "Downloads a file from an HTTP(S) URL into the user Downloads folder and reveals it."
+commands.allow = ["download_url_to_downloads_cmd"]
+
+[[permission]]
+identifier = "allow-read-pdf-bytes"
+description = "Reads raw bytes from a local file path (used by the PDF drop zone to load drag-dropped or dialog-picked PDFs)."
+commands.allow = ["read_pdf_bytes_cmd"]
+
+[[permission]]
+identifier = "allow-extract-docx-pages"
+description = "Extracts text pages from a DOCX file (unzips and parses word/document.xml)."
+commands.allow = ["extract_docx_pages_cmd"]
+
+[[permission]]
+identifier = "allow-persist-context-source-file"
+description = "Copies a user-selected document into app-local KTS storage and returns the new absolute path."
+commands.allow = ["persist_context_source_file_cmd"]
+
+[[permission]]
+identifier = "allow-run-prompt"
+description = "Runs a raw LLM prompt (local Qwen or OpenAI) and returns the text response."
+commands.allow = ["run_prompt_cmd"]
+
+[[permission]]
+identifier = "allow-set-clipboard-monitor-enabled"
+description = "Enables or disables the clipboard monitor (copy history capture)."
+commands.allow = ["set_clipboard_monitor_enabled_cmd"]
+
+[[permission]]
+identifier = "allow-set-fn-dictation-shortcut"
+description = "Enables or disables the Fn/Globe dictation listener (synced with Settings)."
+commands.allow = ["set_fn_dictation_shortcut_enabled_cmd"]
+
+[[permission]]
+identifier = "allow-apply-macos-hotkey-letters"
+description = "Applies per-action main key letters for ⌘⌥ global shortcuts and re-registers them."
+commands.allow = ["apply_macos_hotkey_key_letters_cmd"]
+
+[[permission]]
+identifier = "allow-capture-app-screenshot"
+description = "Captures the screen as a base64 PNG for the feedback/bug-report modal."
+commands.allow = ["capture_app_screenshot_cmd"]
+
+[[permission]]
+identifier = "allow-export-chrome-extension-zip"
+description = "Zips the bundled Chrome Meet extension plus bridge preset into Downloads."
+commands.allow = ["export_chrome_extension_zip_cmd"]
+
+[[permission]]
+identifier = "allow-local-save-tag"
+description = "Upserts a tag row in the user's local SQLite index."
+commands.allow = ["local_save_tag_cmd"]
+
+[[permission]]
+identifier = "allow-local-list-tags"
+description = "Lists all tags for a user from the local SQLite index."
+commands.allow = ["local_list_tags_cmd"]
+
+[[permission]]
+identifier = "allow-local-delete-tag"
+description = "Deletes a tag from the user's local SQLite index."
+commands.allow = ["local_delete_tag_cmd"]
+
+[[permission]]
+identifier = "allow-sqlite-list-tables-cmd"
+description = "Lists all tables in a user's local SQLite index database (super admin inspector)."
+commands.allow = ["sqlite_list_tables_cmd"]
+
+[[permission]]
+identifier = "allow-sqlite-query-table-cmd"
+description = "Queries rows from a table in the user's local SQLite index database with optional sort (super admin inspector)."
+commands.allow = ["sqlite_query_table_cmd"]
+
+[[permission]]
+identifier = "allow-sqlite-execute-cmd"
+description = "Executes an arbitrary SQL statement against the user's local SQLite index database (super admin inspector)."
+commands.allow = ["sqlite_execute_cmd"]
+
+[[permission]]
+identifier = "allow-get-mcp-server-path-cmd"
+description = "Returns the absolute path to the bundled kety-mcp.mjs MCP server file."
+commands.allow = ["get_mcp_server_path_cmd"]
+
+[[permission]]
+identifier = "allow-mcp-api-info-cmd"
+description = "Reports the local MCP API port, whether it is listening, and the access key shown in Settings."
+commands.allow = ["mcp_api_info_cmd"]
+
+[[permission]]
+identifier = "allow-regenerate-mcp-api-token-cmd"
+description = "Generates a new access key for the local MCP API, invalidating the previous one."
+commands.allow = ["regenerate_mcp_api_token_cmd"]
+
+# ── Text Actions ───────────────────────────────────────────────────────────────
+
+[[permission]]
+identifier = "allow-get-text-actions-config"
+description = "Returns the user's text action list, model, and save-to-history flag."
+commands.allow = ["get_text_actions_config_cmd"]
+
+[[permission]]
+identifier = "allow-save-text-actions"
+description = "Persists the text action list, model, and save-to-history flag to the store."
+commands.allow = ["save_text_actions_cmd"]
+
+[[permission]]
+identifier = "allow-run-text-action"
+description = "Runs a filled text-action prompt through the configured LLM and returns the result."
+commands.allow = ["run_text_action_cmd"]
+
+[[permission]]
+identifier = "allow-insert-text-result"
+description = "Pastes a text-action result into the focused field and optionally saves to capture history."
+commands.allow = ["insert_text_result_cmd"]
+
+# ── GCP bucket sharing ──────────────────────────────────────────────────────────
+
+[[permission]]
+identifier = "allow-gcp-share-set-config-cmd"
+description = "Saves a profile's GCP bucket name and copies the selected service account JSON into app-local storage."
+commands.allow = ["gcp_share_set_config_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-get-config-cmd"
+description = "Returns a profile's GCP sharing config (bucket name + service account email), or an error if it exists but is broken."
+commands.allow = ["gcp_share_get_config_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-remove-config-cmd"
+description = "Removes a profile's saved GCP bucket config and copied service account file."
+commands.allow = ["gcp_share_remove_config_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-test-connection-cmd"
+description = "Uploads and deletes a small test object to verify the configured bucket/service account can create and delete objects."
+commands.allow = ["gcp_share_test_connection_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-create-link-cmd"
+description = "Uploads a local file to the profile's GCP bucket and returns a signed, time-limited download link."
+commands.allow = ["gcp_share_create_link_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-list-links-cmd"
+description = "Lists share links previously created for a profile from the local index."
+commands.allow = ["gcp_share_list_links_cmd"]
+
+[[permission]]
+identifier = "allow-gcp-share-revoke-link-cmd"
+description = "Deletes a shared object from the GCP bucket and marks its share link as revoked."
+commands.allow = ["gcp_share_revoke_link_cmd"]
+
+[[permission]]
+identifier = "allow-build-captures-zip-to-temp-cmd"
+description = "Builds a captures export ZIP to a temp file (not Downloads), used to stage a file for the share flow."
+commands.allow = ["build_captures_zip_to_temp_cmd"]
+
+[[permission]]
+identifier = "allow-delete-temp-file-cmd"
+description = "Deletes a temp file created for the share flow (e.g. a staged ZIP) once it's no longer needed."
+commands.allow = ["delete_temp_file_cmd"]
+
+[[permission]]
+identifier = "allow-build-index-export"
+description = "Builds a shareable index archive from selected captures."
+commands.allow = ["build_index_export_cmd"]
+
+[[permission]]
+identifier = "allow-import-shared-index"
+description = "Imports a shared knowledge index as a read-only assistant."
+commands.allow = ["import_shared_index_cmd"]
+
+[[permission]]
+identifier = "allow-delete-assistant"
+description = "Deletes one imported assistant and all of its files."
+commands.allow = ["delete_assistant_cmd"]
+
+[[permission]]
+identifier = "allow-list-orphan-assistants"
+description = "Lists imported knowledge folders on disk that the app's list does not know about. Reads only."
+commands.allow = ["list_orphan_assistants_cmd"]
+
+[[permission]]
+identifier = "allow-save-captures-zip"
+description = "Saves a captures archive to the Downloads folder."
+commands.allow = ["save_captures_zip_cmd"]
+
+[[permission]]
+identifier = "allow-copy-local-file-to-downloads"
+description = "Copies one media file from the local index to the Downloads folder."
+commands.allow = ["copy_local_file_to_downloads_cmd"]

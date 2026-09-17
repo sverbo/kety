@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kety: a free, local-first AI assistant for your Mac, on open source models</title>
+    <meta
+      name="description"
+      content="Kety keeps what crosses your screen, indexes it on your own Mac and lets you ask about it. Capture, dictation, rewriting and search, all from a keyboard shortcut, on open source models that run locally."
+    />
+    <link rel="icon" href="images/kety-icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/kety-icon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <span class="brand">
+          <img
+            src="images/kety-icon.png"
+            alt=""
+            width="32"
+            height="32"
+            class="brand-icon"
+          />
+          <span class="brand-name">Kety</span>
+        </span>
+        <a class="header-link" href="https://github.com/sverbo/kety">Source on GitHub</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap hero">
+        <h1>A free, local-first AI assistant for your Mac,<br />on open source models</h1>
+        <p class="lead">
+          Today, you are expected to have an AI subscription for everything. One for
+          dictation, one for meeting notes, one for rewriting, one for a chatbot that
+          knows your work, each with its own account and its own monthly charge. They
+          all need a copy of your work on their servers before they can do
+          anything with it, and they stop working when the connection does.
+        </p>
+        <p class="lead">
+          <strong>None of that is required any more.</strong> Open source models small
+          enough to run on a laptop do most of this work, which means it can be <strong>free</strong>, it
+          can <strong>stay on your machine</strong>, and it can keep working with
+          <strong>no connection at all</strong>. A recent Mac
+          (<a class="aside-link" href="#a-bigger-model">or not</a>) has what it takes to run them.
+        </p>
+        <p class="lead">
+          Kety puts that behind a few keyboard shortcuts.
+          <strong>Anything on your screen can be kept with one</strong>: a
+          paragraph you just copied, a screenshot, a recording, something you say out
+          loud. It is saved and indexed on your machine as it arrives, so you can ask
+          questions about it later, or have a model rewrite, translate or answer from it
+          without leaving what you are doing. You install the models once, write the
+          prompts, and decide which shortcut does what.
+        </p>
+
+        <div class="download">
+          <a class="button" href="https://github.com/sverbo/kety/releases/latest">
+            Download for macOS
+          </a>
+          <p class="download-meta">
+            <strong>Apple Silicon only.</strong> There is no Intel, Windows or Linux
+            build.
+          </p>
+        </div>
+
+        <p class="notice">
+          Not signed with an Apple developer certificate yet, so macOS refuses to open it
+          the first time. Control-click Kety in your Applications folder, choose
+          <b>Open</b>, and confirm. You can also allow it from
+          <b>System&nbsp;Settings&nbsp;&rsaquo; Privacy&nbsp;&amp;&nbsp;Security</b>.
+          After that it opens normally.
+        </p>
+      </section>
+
+
+      <section class="wrap shot-block">
+        <figure class="shot">
+          <img
+            src="images/shortcuts.png"
+            alt="Kety's assistant answering a question about the user's own captures, with the menu bar list of shortcuts open beside it."
+            width="1000"
+            height="608"
+            loading="lazy"
+          />
+          <figcaption>
+            The menu bar holds the shortcuts. The assistant answers from what they
+            captured.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="wrap points">
+        <h2 class="section-title">What a shortcut does</h2>
+
+        <article class="point">
+          <h3>Rewrite, translate, summarize what you selected</h3>
+          <p>
+            Highlight text anywhere, in a mail draft, a document or a code comment, and
+            press the shortcut. A small panel appears next to it with the actions you
+            configured: translate, shorten, fix the tone, whatever you wrote a prompt
+            for. Pick one and the rewritten text replaces your selection. If the answer
+            is not quite right, keep talking to it in the same panel until it is.
+          </p>
+        </article>
+
+        <article class="point">
+          <h3>Dictate, and have it cleaned up before it lands</h3>
+          <p>
+            Hold another shortcut and speak. Speech-to-text runs locally, then your own
+            prompt rewrites the transcript into an email, into notes, into another
+            language, and it is typed into the field you were in. Dictate over a
+            selection and it becomes an instruction about that text instead.
+          </p>
+        </article>
+
+      </section>
+
+      <section class="wrap points">
+        <h2 class="section-title">A knowledge base you actually own</h2>
+
+        <p class="section-intro">
+          The same shortcuts capture as well as transform. Whatever crosses your screen
+          can be kept: a screenshot, a screen recording, a note you dictate, a PDF you
+          drop in, the captions from a Google&nbsp;Meet call. It lands in a SQLite database in your own Library folder, and it is indexed as it arrives, so it is
+          searchable a few seconds later without you doing anything.
+        </p>
+
+        <article class="point">
+          <h3>Ask it questions</h3>
+          <p>
+            The assistant answers from what you captured, and tells you which capture it
+            read. The search runs on your machine against your own index, so a question
+            about last week's meeting does not turn into a request to anyone's server.
+          </p>
+        </article>
+
+        <article class="point">
+          <h3>Hand a piece of it to someone</h3>
+          <p>
+            Pick the captures you want to share and Kety builds a single file containing
+            them and their index. Whoever opens it gets them as a read-only assistant
+            alongside their own, and can ask it questions the same way. It is the fastest
+            way to hand over what you know when you leave a project, or to give someone
+            the context they would otherwise ask you for twice a day.
+          </p>
+          <p>
+            You can send a link for it, which is usually what people want, and the
+            storage behind that link is yours. Point Kety at a
+            Google&nbsp;Cloud&nbsp;Storage bucket you own and it uploads there and signs
+            the link for you: your bucket, your credentials, your call on when it stops
+            working. Nobody else is holding the file, and there is no account here that
+            could be closed with your data inside it.
+          </p>
+          <p>
+            Or skip the link and send the file itself: by email, over AirDrop, on a USB
+            stick. There is no service in the middle either way.
+          </p>
+        </article>
+      </section>
+
+
+      <section class="wrap points">
+        <h2 class="section-title">Four things worth knowing</h2>
+
+        <article class="point">
+          <h3>It is free, and there is nothing to call</h3>
+          <p>
+            No paid tier, no trial, nothing to subscribe to, and no API bill, because the models
+            run on your own machine, so the work costs you disk space and nothing else.
+            Kety is released under the Apache&nbsp;2.0 licence.
+          </p>
+        </article>
+
+        <article class="point">
+          <h3>It works without an internet connection</h3>
+          <p>
+            Capture, indexing, search and the assistant can all run on local models.
+            Kety ships with no model weights, so you install the ones you want once,
+            from Settings. After that it <strong>works with the network off</strong>: on a train, on a
+            plane, in a basement meeting room, exactly the same as it does at your desk.
+          </p>
+        </article>
+
+        <article class="point">
+          <h3>Your data stays on your machine</h3>
+          <p>
+            <strong>There is no Kety account, no sign-in, no password, and no Kety server to
+            send anything to</strong>. There is no telemetry either: no analytics, no crash
+            reporting, no update check, no startup ping. Your captures live in a SQLite
+            database in your own Library folder, next to the media files. It is not
+            encrypted at rest, so use FileVault if that matters to you.
+          </p>
+        </article>
+
+        <article class="point">
+          <h3>You can bend it to your needs</h3>
+          <p>
+            The whole thing is open source. Read it, change it, fork it, or run a build
+            of your own. What the app does with your data is written down in the code,
+            which is the only claim on this page you do not have to take on trust.
+          </p>
+        </article>
+      </section>
+
+
+      <section class="wrap closing" id="a-bigger-model">
+        <h2 class="section-title">If your machine cannot keep up</h2>
+        <p>
+          Older Macs exist, and some jobs want a bigger model than yours can hold. You
+          can plug in an OpenAI key and send those to a hosted model instead, chosen per
+          task, so local stays the default and the key is there for what needs it.
+        </p>
+        <p>
+          It is a step away from the idea, and worth saying plainly. What you get back is
+          one key instead of five subscriptions, billed for what you actually use.
+          Rewriting a paragraph or cleaning up a dictation is a short request, so the
+          cost per use stays small, and you are paying for the work rather than for the
+          right to keep an app installed. The prompts, the shortcuts and the index stay
+          yours either way.
+        </p>
+      </section>
+
+      <section class="wrap closing">
+        <h2 class="section-title">Open source</h2>
+        <p>
+          The code lives at
+          <a href="https://github.com/sverbo/kety">github.com/sverbo/kety</a>, under the
+          Apache&nbsp;2.0 licence. The README there explains what the app does with your
+          data in more detail, and is honest about the rough edges.
+        </p>
+        <p>
+          Issues and pull requests are welcome. Anything else, write to
+          <a href="mailto:sam@kety.app">sam@kety.app</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>Kety &middot; Apache&nbsp;2.0 &middot; macOS on Apple Silicon.</p>
+        <p>
+          <a href="https://github.com/sverbo/kety">GitHub</a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://github.com/sverbo/kety/releases/latest">Download</a>
+          <span aria-hidden="true"> · </span>
+          <a href="mailto:sam@kety.app">sam@kety.app</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

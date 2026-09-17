@@ -1,0 +1,147 @@
+Kety
+Copyright 2026 Samuel Verboomen
+
+This product includes software developed by third parties, listed below.
+Everything else in this repository is original work licensed under the
+Apache License, Version 2.0 (see LICENSE).
+
+The great majority of Kety's dependencies — around 370 Rust crates and 190 npm
+packages — are licensed under MIT and/or Apache-2.0 and carry no obligation
+beyond their own licence text. Only the items that require an attribution
+notice are listed here.
+
+--------------------------------------------------------------------------------
+ring (Apache-2.0 AND ISC)
+https://github.com/briansmith/ring
+
+  Copyright 2015-2025 Brian Smith.
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted, provided that the above
+  copyright notice and this permission notice appear in all copies.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+  SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+ring incorporates code from BoringSSL (Copyright Google Inc., Apache-2.0) and
+from fiat-crypto (Copyright the fiat-crypto authors, Apache-2.0).
+
+The companion crate `untrusted` (https://github.com/briansmith/untrusted) is
+ISC licensed under the same copyright notice as above.
+
+--------------------------------------------------------------------------------
+Unicode character data (Unicode-3.0)
+
+Kety links the ICU4X crates (icu_collections, icu_locale_core, icu_normalizer,
+icu_properties, icu_provider, litemap, potential_utf, tinystr, writeable, yoke,
+zerofrom, zerotrie, zerovec and their `_data` / `-derive` companions —
+https://github.com/unicode-org/icu4x) and `unicode-ident`
+(https://github.com/dtolnay/unicode-ident). These embed Unicode character
+tables distributed under the Unicode License V3:
+
+  Copyright (C) 1991-2023 Unicode, Inc. All rights reserved.
+  Distributed under the Terms of Use in https://www.unicode.org/copyright.html
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of data files and any associated documentation (the "Data Files") or software
+  and any associated documentation (the "Software") to deal in the Data Files
+  or Software without restriction, including without limitation the rights to
+  use, copy, modify, merge, publish, distribute, and/or sell copies of the Data
+  Files or Software, and to permit persons to whom the Data Files or Software
+  are furnished to do so, provided that either (a) this copyright and
+  permission notice appear with all copies of the Data Files or Software, or
+  (b) this copyright and permission notice appear in associated Documentation.
+
+  THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+  KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+  THIRD PARTY RIGHTS. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS
+  INCLUDED IN THIS NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR
+  CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+  DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+  TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+  OF THE DATA FILES OR SOFTWARE.
+
+--------------------------------------------------------------------------------
+Mozilla Public License 2.0 components
+
+The following crates are licensed under the MPL-2.0. They are used unmodified.
+Their source is available from the URLs below, and under MPL-2.0 section 3.2
+you may obtain the source of these components in the form in which Kety uses
+them from those same URLs.
+
+  option-ext          https://github.com/soc/option-ext
+    Linked into the shipped application (via dirs -> dirs-sys -> tauri).
+
+  cssparser           https://github.com/servo/rust-cssparser
+  cssparser-macros    https://github.com/servo/rust-cssparser
+  dtoa-short          https://github.com/upsuper/dtoa-short
+  selectors           https://github.com/servo/servo
+    Build-time only (reached through tauri-build / tauri-macros); no code from
+    these crates is present in the distributed binary. Listed for completeness.
+
+--------------------------------------------------------------------------------
+PDF.js (Apache-2.0)
+https://github.com/mozilla/pdf.js
+
+  Copyright Mozilla Foundation and contributors.
+
+Distributed as the `pdfjs-dist` npm package and bundled into Kety's frontend,
+including its worker, to render and extract text from PDFs.
+
+--------------------------------------------------------------------------------
+whisper.cpp (MIT)
+https://github.com/ggerganov/whisper.cpp
+
+  Copyright (c) 2023-2026 The ggml authors
+
+Built from source by `desktop-app/kts-desktop/scripts/setup-whisper.sh` and
+distributed as the `whisper-cli` binary inside the application bundle. The
+statically linked ggml library is covered by the same licence.
+
+--------------------------------------------------------------------------------
+llama.cpp (MIT)
+https://github.com/ggerganov/llama.cpp
+
+  Copyright (c) 2023-2026 The ggml authors
+
+Built from source by `desktop-app/kts-desktop/scripts/setup-llama-cli.sh` and
+distributed as the `llama-cli` and `llama-embedding` binaries inside the
+application bundle. The statically linked ggml library is covered by the same
+licence.
+
+--------------------------------------------------------------------------------
+Mozilla CA certificate store (CDLA-Permissive-2.0)
+https://github.com/rustls/webpki-roots
+
+The `webpki-roots` crate redistributes Mozilla's trusted CA root certificates,
+used to verify TLS connections.
+
+--------------------------------------------------------------------------------
+Model weights downloaded at runtime
+
+Kety ships with no model weights. When a user installs a model from Settings,
+it is downloaded from Hugging Face directly to that user's machine. Kety does
+not redistribute any of these files; they are listed here so their terms are
+easy to find.
+
+  Whisper (ggml conversions)          MIT
+    https://huggingface.co/ggerganov/whisper.cpp
+    Original model: OpenAI Whisper (MIT), https://github.com/openai/whisper
+
+  Qwen2.5-0.5B-Instruct-GGUF          Apache-2.0
+  Qwen2.5-1.5B-Instruct-GGUF          Apache-2.0
+  Qwen3-Embedding-0.6B-GGUF           Apache-2.0
+  Qwen3-Embedding-4B-GGUF             Apache-2.0
+    https://huggingface.co/Qwen
+
+  Qwen2.5-3B-Instruct-GGUF            Qwen Research License Agreement
+    https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF
+    Unlike the other Qwen models offered, this one is NOT Apache-2.0. Its
+    licence restricts use to research and non-commercial purposes. Read it
+    before installing this model.

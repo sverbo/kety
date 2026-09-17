@@ -1,0 +1,20 @@
+{
+  "name": "kety-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Kety knowledge base — connects Claude Code to your local knowledge.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "esbuild index.js --bundle --platform=node --format=esm --outfile=dist/kety-mcp.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

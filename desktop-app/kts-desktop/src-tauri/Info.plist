@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>Kety suit les applications et fenêtres au premier plan pendant une session, et peut enregistrer une capture plein écran sur demande (Control+B) dans un dossier local pour le contexte de la session.</string>
+	<key>NSAccessibilityUsageDescription</key>
+	<string>Kety peut lire la sélection de texte via Accessibilité lorsque tu utilises Control+V (priorité à la sélection, sinon presse-papiers).</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Kety utilise le microphone pour la dictée vocale (Ctrl+D) : le texte transcrit est ajouté comme note de contexte au segment actif.</string>
+</dict>
+</plist>

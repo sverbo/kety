@@ -1,0 +1,663 @@
+/* Styles HUD - pas de règles html/body/root pour ne pas affecter les autres fenêtres */
+
+/* Fenêtre entière : dégradé, coins arrondis, ombre (plus de « pilule » dans un cadre blanc) */
+/* The gradient is opaque: reading a result through whatever happens to be behind the HUD made it
+   hard to look at. The window itself stays transparent — that is what lets the rounded corners
+   and the shadow exist instead of a square panel. */
+.hud-shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  background: linear-gradient(
+    145deg,
+    rgb(220, 232, 255) 0%,
+    rgb(237, 224, 255) 45%,
+    rgb(255, 214, 232) 100%
+  );
+  border-radius: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  box-shadow:
+    0 3px 14px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+}
+
+.hud-shell--dictation {
+  border-color: rgba(0, 0, 0, 0.36);
+}
+
+.hud-shell > .hud-root {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 8px;
+  padding-right: 28px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.hud-brief-warning {
+  flex: 0 0 auto;
+  pointer-events: auto;
+  align-self: center;
+  max-width: 100%;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #7a5c00;
+  background: rgba(255, 214, 102, 0.92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(200, 150, 0, 0.35);
+}
+
+/* Icône app (PNG alpha, même asset que la landing) */
+.hud-kts-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 0;
+  flex-shrink: 0;
+  pointer-events: none;
+  object-fit: contain;
+}
+
+/* Zone de drag */
+.hud-drag {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 100%;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.hud-drag[data-tauri-drag-region] {
+  cursor: grab;
+}
+
+.hud-drag[data-tauri-drag-region]:active {
+  cursor: grabbing;
+}
+
+.hud-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(30, 20, 60, 0.82);
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* Pastille colorée */
+.hud-mode-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  pointer-events: none;
+  animation: hud-pulse 1.4s ease-in-out infinite;
+}
+.hud-mode-dot--dictation  { background: #5e5ce6; }
+.hud-mode-dot--screen     { background: #ff453a; }
+.hud-mode-dot--processing { background: #8e8e93; }
+.hud-mode-dot--paused     { background: #ff9f0a; animation: none; }
+
+@keyframes hud-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* Boutons action */
+.hud-btn {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, opacity 0.12s ease;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.hud-btn-start {
+  border: 1px solid rgba(48, 209, 88, 0.45);
+  background: rgba(48, 209, 88, 0.14);
+  color: #1a7a36;
+}
+.hud-btn-start:hover {
+  background: rgba(48, 209, 88, 0.24);
+}
+
+.hud-btn-stop {
+  border: 1px solid rgba(255, 69, 58, 0.45);
+  background: rgba(255, 69, 58, 0.12);
+  color: #c0271d;
+}
+.hud-btn-stop:hover:not(:disabled) {
+  background: rgba(255, 69, 58, 0.22);
+}
+.hud-btn-stop:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.hud-btn-pause {
+  border: 1px solid rgba(90, 90, 110, 0.35);
+  background: rgba(90, 90, 110, 0.10);
+  color: rgba(30, 20, 60, 0.65);
+  font-size: 9px;
+  padding: 2px 6px;
+}
+.hud-btn-pause:hover {
+  background: rgba(90, 90, 110, 0.18);
+}
+
+.hud-btn-resume {
+  border: 1px solid rgba(48, 209, 88, 0.45);
+  background: rgba(48, 209, 88, 0.14);
+  color: #1a7a36;
+}
+.hud-btn-resume:hover {
+  background: rgba(48, 209, 88, 0.24);
+}
+
+.hud-btn-cancel {
+  border: 1px solid rgba(90, 90, 110, 0.35);
+  background: rgba(90, 90, 110, 0.10);
+  color: rgba(30, 20, 60, 0.65);
+}
+.hud-btn-cancel:hover {
+  background: rgba(90, 90, 110, 0.18);
+}
+
+/* Confirmation inline */
+.hud-confirm {
+  gap: 6px;
+}
+.hud-confirm-msg {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(30, 20, 60, 0.75);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* Sound wave indicator */
+.hud-wave {
+  flex-shrink: 0;
+  pointer-events: none;
+  display: block;
+}
+
+/* Muted mic icon (shown when no audio detected or mic unavailable) */
+.hud-mic-muted {
+  flex-shrink: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 14px;
+}
+
+/* ── Result box: the text that was just dictated or transformed ──────────── */
+
+/* Hover pauses the auto-hide, so the whole window must see the pointer. */
+.hud-shell--result {
+  pointer-events: auto;
+}
+
+.hud-shell > .hud-result {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 26px 7px 8px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.hud-result-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  height: 18px;
+}
+
+.hud-result-head > .hud-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The header bar doubles as the handle the window is dragged by — same affordance as the
+   recording HUD's. The icon and the label are `pointer-events: none`, so the whole bar drags
+   except for the buttons sitting in it. */
+.hud-result-head[data-tauri-drag-region] {
+  cursor: grab;
+}
+
+.hud-result-head[data-tauri-drag-region]:active {
+  cursor: grabbing;
+}
+
+.hud-result-copy {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: rgba(90, 90, 110, 0.12);
+  color: rgba(30, 20, 60, 0.7);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.hud-result-copy:hover {
+  background: rgba(90, 90, 110, 0.22);
+  color: rgba(30, 20, 60, 0.95);
+}
+
+.hud-result-text {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  font-size: 11px;
+  line-height: 16px;
+  color: rgba(30, 20, 60, 0.9);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+.hud-result-text::-webkit-scrollbar {
+  width: 5px;
+}
+.hud-result-text::-webkit-scrollbar-thumb {
+  background: rgba(30, 20, 60, 0.22);
+  border-radius: 3px;
+}
+
+/* Way into the chat: a compact text button, next to the source label. */
+.hud-result-chat {
+  flex-shrink: 0;
+  height: 18px;
+  padding: 0 7px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(94, 92, 230, 0.16);
+  color: rgba(48, 40, 140, 0.95);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.hud-result-chat:hover {
+  background: rgba(94, 92, 230, 0.28);
+}
+
+/* ── Follow-up chat: the result box, opened up ───────────────────────────── */
+
+.hud-shell--chat {
+  pointer-events: auto;
+}
+
+.hud-shell > .hud-chat {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px 26px 7px 8px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* The conversation is the only part that scrolls: the header and the input row are fixed, so
+   the box to type in stays reachable however long the exchange gets. */
+.hud-chat-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-right: 2px;
+}
+
+.hud-chat-log::-webkit-scrollbar {
+  width: 5px;
+}
+.hud-chat-log::-webkit-scrollbar-thumb {
+  background: rgba(30, 20, 60, 0.22);
+  border-radius: 3px;
+}
+
+/* `flex: 0 0 auto`: a message keeps its full height and the log scrolls past it, instead of
+   being squeezed by the column to make the conversation fit. */
+.hud-chat-msg {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  max-width: 94%;
+  padding: 4px 6px;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+.hud-chat-msg-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 11px;
+  line-height: 15px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+.hud-chat-msg--assistant {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.58);
+  color: rgba(30, 20, 60, 0.92);
+}
+
+.hud-chat-msg--user {
+  align-self: flex-end;
+  background: rgba(94, 92, 230, 0.2);
+  color: rgba(34, 26, 110, 0.95);
+}
+
+.hud-chat-msg--error {
+  align-self: stretch;
+  max-width: 100%;
+  background: rgba(255, 214, 102, 0.86);
+  color: #7a5c00;
+  font-weight: 600;
+}
+
+.hud-chat-copy {
+  margin-top: 1px;
+}
+
+.hud-chat-busy {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(30, 20, 60, 0.6);
+}
+
+.hud-chat-ask {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hud-chat-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 22px;
+  padding: 0 7px;
+  box-sizing: border-box;
+  border: 1px solid rgba(30, 20, 60, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(30, 20, 60, 0.92);
+  font-family: inherit;
+  font-size: 11px;
+  outline: none;
+  -webkit-user-select: text;
+  user-select: text;
+}
+.hud-chat-input::placeholder {
+  color: rgba(30, 20, 60, 0.38);
+}
+.hud-chat-input:focus {
+  border-color: rgba(94, 92, 230, 0.6);
+}
+
+/* The microphone beside the input. Wide enough in every state that the row does not shift when
+   the icon is replaced by the level meter: the meter's canvas is 20px, the icon 12px. */
+.hud-chat-mic {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: rgba(90, 90, 110, 0.12);
+  color: rgba(30, 20, 60, 0.7);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.hud-chat-mic:hover:not(:disabled) {
+  background: rgba(90, 90, 110, 0.22);
+  color: rgba(30, 20, 60, 0.95);
+}
+/* Recording reads as recording without a label: the same red the rest of the app uses for it. */
+.hud-chat-mic--recording {
+  background: rgba(255, 69, 58, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 69, 58, 0.45);
+}
+.hud-chat-mic--recording:hover {
+  background: rgba(255, 69, 58, 0.26);
+}
+.hud-chat-mic--transcribing {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.hud-chat-send {
+  flex-shrink: 0;
+  height: 22px;
+  padding: 0 9px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(94, 92, 230, 0.85);
+  color: #fff;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s ease, opacity 0.12s ease;
+}
+.hud-chat-send:hover:not(:disabled) {
+  background: rgba(94, 92, 230, 1);
+}
+.hud-chat-send:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Croix : coin haut-droit de la fenêtre HUD (ancrée au shell, hors flux flex) */
+.hud-shell > .hud-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
+  pointer-events: auto;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: rgba(30, 20, 60, 0.4);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.1s, background 0.1s;
+}
+.hud-shell > .hud-close:hover {
+  color: rgba(30, 20, 60, 0.85);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ── Text actions mode ───────────────────────────────────────────────────── */
+/* ── Text actions context-menu popup ─────────────────────────────────── */
+
+.ta-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(252, 252, 253, 0.96);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.22), 0 1px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ta-preview {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 7px 14px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  flex-shrink: 0;
+}
+
+.ta-list {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 0;
+  overflow-y: auto;
+}
+
+.ta-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.85);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  pointer-events: all;
+  transition: background 0.08s;
+  box-sizing: border-box;
+}
+
+.ta-item:hover {
+  background: rgba(0, 100, 255, 0.1);
+  color: rgb(0, 64, 200);
+}
+
+.ta-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ta-error {
+  font-size: 11px;
+  color: #c0392b;
+  padding: 4px 14px 6px;
+  word-break: break-word;
+}
+
+.ta-custom-input {
+  margin: 6px 10px 0;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  color: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  resize: none;
+  box-sizing: border-box;
+  width: calc(100% - 20px);
+}
+
+.ta-custom-input:focus {
+  outline: none;
+  border-color: rgba(0, 100, 255, 0.5);
+}
+
+.ta-custom-actions {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  justify-content: flex-end;
+}
+
+.ta-custom-btn {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.ta-custom-btn--run {
+  background: rgb(0, 100, 255);
+  color: #fff;
+}
+
+.ta-custom-btn--run:disabled {
+  background: rgba(0, 100, 255, 0.35);
+  cursor: default;
+}
+
+.ta-custom-btn--cancel {
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.7);
+}
