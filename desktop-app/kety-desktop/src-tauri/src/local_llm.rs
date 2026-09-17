@@ -659,8 +659,19 @@ pub fn run_sensitive_preview(
 
     #[cfg(target_os = "macos")]
     {
-        if selected_gguf_filename.is_empty() {
-            return Err("No GGUF model selected. Choose one in Settings → Process (Local Qwen).".to_string());
+        // The model picked for this scan wins; the global Qwen selection is only the
+        // fallback for callers that have no opinion. `run_raw_prompt` already works this
+        // way, which is why auto-tagging kept working on a `local:` model while the scan
+        // failed on the same one: the scan ignored it and fell back to a setting the user
+        // had never filled in.
+        let gguf = sensitive_scan_model
+            .and_then(|m| m.strip_prefix("local:"))
+            .map(str::trim)
+            .filter(|s| !s.is_empty())
+            .unwrap_or(selected_gguf_filename);
+
+        if gguf.is_empty() {
+            return Err("No local model selected for the sensitive scan. Pick one in Settings.".to_string());
         }
         let cli = llama_cli_path(app);
         if !cli.is_file() {
@@ -669,7 +680,7 @@ pub fn run_sensitive_preview(
                 cli.display()
             ));
         }
-        let model_path = crate::kety_paths::qwen_model_for(app, selected_gguf_filename);
+        let model_path = crate::kety_paths::qwen_model_for(app, gguf);
         if !model_path.is_file() {
             return Err(format!(
                 "Model file missing: {}. Download it in Settings.",

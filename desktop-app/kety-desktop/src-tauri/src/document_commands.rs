@@ -210,7 +210,7 @@ pub async fn sensitive_preview_run_cmd(
     state: tauri::State<'_, crate::QwenLocalModelState>,
 ) -> Result<local_llm::SensitivePreviewResponse, String> {
     let sel = state.0.lock().map_err(|e| e.to_string())?.clone();
-    tauri::async_runtime::spawn_blocking(move || {
+    let out = tauri::async_runtime::spawn_blocking(move || {
         local_llm::run_sensitive_preview(
             &app,
             &sel,
@@ -220,7 +220,15 @@ pub async fn sensitive_preview_run_cmd(
         )
     })
     .await
-    .map_err(|e| format!("spawn_blocking panic: {e}"))?
+    .map_err(|e| format!("spawn_blocking panic: {e}"))?;
+
+    // The automatic scan runs per capture in the background and its caller only has a
+    // console it cannot show anyone, so a failure here used to leave no trace at all:
+    // the feature looked idle rather than broken. Say it where the app's log can be read.
+    if let Err(ref e) = out {
+        eprintln!("[kts:sensitive] scan failed: {e}");
+    }
+    out
 }
 
 #[tauri::command]

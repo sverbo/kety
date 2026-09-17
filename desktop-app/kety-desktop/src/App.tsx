@@ -2304,7 +2304,6 @@ function App() {
     if (!autoScanSensitiveRef.current) return;
     const model = sensitiveScanModelRef.current;
     if (model === "disabled") return;
-    const scanUsesRemote = model.startsWith(OPENAI_MODEL_PREFIX);
     const chunks: string[] = [];
     for (let i = 0; i < text.length; i += SENSITIVE_SCAN_CHUNK_CHARS) {
       chunks.push(text.slice(i, i + SENSITIVE_SCAN_CHUNK_CHARS));
@@ -2315,13 +2314,13 @@ function App() {
       for (const chunk of chunks) {
         let r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
           req: { text: chunk, displayApp: appName, windowTitle },
-          sensitiveScanModel: scanUsesRemote ? model : null,
+          sensitiveScanModel: model,
           openaiApiKey: model.startsWith(OPENAI_MODEL_PREFIX) ? openAiApiKeyRef.current.trim() : null,
         });
         if (r.parsed === null) {
           r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
             req: { text: chunk, displayApp: appName, windowTitle },
-            sensitiveScanModel: scanUsesRemote ? model : null,
+            sensitiveScanModel: model,
             openaiApiKey: model.startsWith(OPENAI_MODEL_PREFIX) ? openAiApiKeyRef.current.trim() : null,
           });
         }
@@ -4483,20 +4482,19 @@ function App() {
             }
           }
           setScanProgress({ done: 0, total: items.length });
-          const scanUsesRemote = sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX);
           for (let i = 0; i < items.length; i++) {
             if (scanCancelRef.current) break;
             const item = items[i]!;
             try {
               let r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
                 req: { text: item.text, displayApp: item.appName, windowTitle: item.windowTitle },
-                sensitiveScanModel: scanUsesRemote ? sensitiveScanModel : null,
+                sensitiveScanModel,
                 openaiApiKey: sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX) ? openAiApiKey.trim() : null,
               });
               if (r.parsed === null && !scanCancelRef.current) {
                 r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
                   req: { text: item.text, displayApp: item.appName, windowTitle: item.windowTitle },
-                  sensitiveScanModel: scanUsesRemote ? sensitiveScanModel : null,
+                  sensitiveScanModel,
                   openaiApiKey: sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX) ? openAiApiKey.trim() : null,
                 });
               }

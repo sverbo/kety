@@ -1087,14 +1087,13 @@ export function CapturesTab({
                           }
                         }
                         setScanProgress({ done: 0, total: items.length });
-                        const scanUsesRemote = sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX);
                         for (let i = 0; i < items.length; i++) {
                           if (scanCancelRef.current) break;
                           const item = items[i]!;
                           try {
                             let r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
                               req: { text: item.text, displayApp: item.appName, windowTitle: item.windowTitle },
-                              sensitiveScanModel: scanUsesRemote ? sensitiveScanModel : null,
+                              sensitiveScanModel,
                               openaiApiKey: sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX)
                                 ? openAiApiKey.trim()
                                 : null,
@@ -1102,7 +1101,7 @@ export function CapturesTab({
                             if (r.parsed === null && !scanCancelRef.current) {
                               r = await invoke<SensitivePreviewResponse>("sensitive_preview_run_cmd", {
                                 req: { text: item.text, displayApp: item.appName, windowTitle: item.windowTitle },
-                                sensitiveScanModel: scanUsesRemote ? sensitiveScanModel : null,
+                                sensitiveScanModel,
                                 openaiApiKey: sensitiveScanModel.startsWith(OPENAI_MODEL_PREFIX)
                                   ? openAiApiKey.trim()
                                   : null,
